@@ -1,11 +1,12 @@
 package main;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 /**
  * Clase de Subasta.
  * 
- * @author Jose
+ * @author Jose Manuel Gomez Martinez
  * @since 31/01/2020
  */
 public class Subasta {
@@ -56,6 +57,12 @@ public class Subasta {
 		this.fechaLimite = fechaLimite;
 		
 	}
+	
+	//IDEA... 
+	/*
+	 * Se podrian crear constructores que añadiese dias, horas o minutos,
+	 * en vez de hacerlo totalmente con todo datetime a lo bestia.
+	 */
 
 //	METODOS
 	
