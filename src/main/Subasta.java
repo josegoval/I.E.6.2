@@ -91,58 +91,64 @@ public class Subasta {
 	 * @since 01/02/2020 
 	 */
 	public void Pujar(Usuario pujador, double cantidad) {
-		// Comprueba si la cantidad pujada es mayor a 0
-		if (cantidad > 0) {
-			// Comprueba si el pujador y el propietario de la subasta son diferentes
-			// usuarios.
-			if (PROPIETARIO != pujador) {
-				// Si el usuario tiene suficiente credito...
-				if (pujador.getCredito() >= cantidad) {
-					// Si aun nadie ha pujado...
-					if (pujas.isEmpty()) {
-						// Si ha pujado sin cantidad, se le asigna 1 euro al valor
-						// de entrada.
-						if (cantidad == 0) {
-							realizarPujaConValor(pujador, 1);
+		// Comprueba el estado de la subasta primero.
+		if (estado==EstadoSubasta.ABIERTA) {
+			// Comprueba si la cantidad pujada es mayor a 0
+			if (cantidad > 0) {
+				// Comprueba si el pujador y el propietario de la subasta son diferentes
+				// usuarios.
+				if (PROPIETARIO != pujador) {
+					// Si el usuario tiene suficiente credito...
+					if (pujador.getCredito() >= cantidad) {
+						// Si aun nadie ha pujado...
+						if (pujas.isEmpty()) {
+							// Si ha pujado sin cantidad, se le asigna 1 euro al valor
+							// de entrada.
+							if (cantidad == 0) {
+								realizarPujaConValor(pujador, 1);
+							} else {
+								// Se crea una nueva puja, asignada a la mayor y se 
+								// guarda en el registro de la coleccion.
+								realizarPujaConValor(pujador, cantidad);
+							}
 						} else {
-							// Se crea una nueva puja, asignada a la mayor y se 
-							// guarda en el registro de la coleccion.
-							realizarPujaConValor(pujador, cantidad);
+							// Si ya existen pujas...
+							// Si se ha pujado sin cantidad, se le asinga 1 euro mas
+							// de la puja mayor.
+							if (cantidad == 0) {
+								// Si tiene suficiente credito...
+								if (pujaMayor.getCANTIDAD()+1 <= pujador.getCredito()) {
+									realizarPujaConValor(pujador, pujaMayor.getCANTIDAD()+1);
+								} else {
+									System.out.println("No tiene suficiente credito"
+											+ " para realizar dicha puja.");
+								}
+							} else {
+								// Comprueba si la cantidad es superior a la de la puja
+								// mayor.
+								if (cantidad > pujaMayor.getCANTIDAD()) {
+									realizarPujaConValor(pujador, cantidad);
+								} else {
+									// Puja no aceptada.
+									System.out.println("Puja no aceptada.");
+								}
+							}
 						}
 					} else {
-					// Si ya existen pujas...
-						// Si se ha pujado sin cantidad, se le asinga 1 euro mas
-						// de la puja mayor.
-						if (cantidad == 0) {
-							// Si tiene suficiente credito...
-							if (pujaMayor.getCANTIDAD()+1 <= pujador.getCredito()) {
-								realizarPujaConValor(pujador, pujaMayor.getCANTIDAD()+1);
-							} else {
-								System.out.println("No tiene suficiente credito"
-										+ " para realizar dicha puja.");
-							}
-						} else {
-							// Comprueba si la cantidad es superior a la de la puja
-							// mayor.
-							if (cantidad > pujaMayor.getCANTIDAD()) {
-								realizarPujaConValor(pujador, cantidad);
-							} else {
-								// Puja no aceptada.
-								System.out.println("Puja no aceptada.");
-							}
-						}
+						System.out.println("No tiene suficiente credito para realizar"
+								+ " dicha puja.");
+						// Se podria implementar en un futuro preguntarle si quiere 
+						// introducir mas credito.
 					}
 				} else {
-					System.out.println("No tiene suficiente credito para realizar"
-							+ " dicha puja.");
-					// Se podria implementar en un futuro preguntarle si quiere 
-					// introducir mas credito.
+					System.out.println("No puedes pujar en su propia subasta.");
 				}
 			} else {
-				System.out.println("No puedes pujar en su propia subasta.");
+				System.out.println("No puedes pujar en negativo.");
 			}
 		} else {
-			System.out.println("No puedes pujar en negativo.");
+			System.out.println("La subasta esta " + estado.name() + ". No puede"
+					+ " pujar en ella.");
 		}
 	}
 	
@@ -183,6 +189,31 @@ public class Subasta {
 				+ "/nPujador: " + p.getUSUARIO().getNAME()
 				+ "/nCantidad: " + p.getCANTIDAD()
 				+ "/nFecha: " + p.getFECHA()));
+	}
+	
+	/**
+	 * Cierra la subasta si ha pasado la fechaLimite, de lo contrario,
+	 * avisara de que aun no se puede cerrar la subasta.
+	 */
+	public void cerrarSubasta() {
+		// Si ha pasado la fecha limite se cerrara la subasta
+		if (LocalDateTime.now().isAfter(fechaLimite)) {
+			estado = EstadoSubasta.CERRADA;
+		} else {
+			System.out.println("Aun no se puede cerrar la subasta.");
+		}
+	}
+	
+	/**
+	 * Pregunta si la subasta esta o no cerrada.
+	 * @return true = cerrada, false = no esta cerrada.
+	 */
+	public boolean subastaCerrada() {
+		if (estado==EstadoSubasta.CERRADA) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 // METODOS PRIVADOS
