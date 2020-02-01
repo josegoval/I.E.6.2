@@ -194,6 +194,8 @@ public class Subasta {
 	/**
 	 * Cierra la subasta si ha pasado la fechaLimite, de lo contrario,
 	 * avisara de que aun no se puede cerrar la subasta.
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 01/02/2020
 	 */
 	public void cerrarSubasta() {
 		// Si ha pasado la fecha limite se cerrara la subasta
@@ -207,6 +209,8 @@ public class Subasta {
 	/**
 	 * Pregunta si la subasta esta o no cerrada.
 	 * @return true = cerrada, false = no esta cerrada.
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 01/02/2020
 	 */
 	public boolean subastaCerrada() {
 		if (estado==EstadoSubasta.CERRADA) {
