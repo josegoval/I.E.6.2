@@ -186,9 +186,9 @@ public class Subasta {
 		AtomicInteger i = new AtomicInteger(0);
 		pujas.stream()
 		.forEach(p -> System.out.println("Puja numero " + i.getAndIncrement() + ":"
-				+ "/nPujador: " + p.getUSUARIO().getNAME()
-				+ "/nCantidad: " + p.getCANTIDAD()
-				+ "/nFecha: " + p.getFECHA()));
+				+ "\nPujador: " + p.getUSUARIO().getNAME()
+				+ "\nCantidad: " + p.getCANTIDAD()
+				+ "\nFecha: " + p.getFECHA()));
 	}
 	
 	/**
@@ -262,16 +262,8 @@ public class Subasta {
 		return fechaCreacion;
 	}
 
-	public void setFechaCreacion(LocalDateTime fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
 	public LocalDateTime getFechaLimite() {
 		return fechaLimite;
-	}
-
-	public void setFechaLimite(LocalDateTime fechaLimite) {
-		this.fechaLimite = fechaLimite;
 	}
 
 	public Usuario getPROPIETARIO() {
