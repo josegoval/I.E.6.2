@@ -245,7 +245,6 @@ public class Subasta {
 		return estado;
 	}
 
-
 	public void setEstado(EstadoSubasta estado) {
 		this.estado = estado;
 	}

@@ -12,10 +12,10 @@ import java.util.List;
 public class Usuario {
 
 	/**
-	 * Coleccion que guarda todas las subastas que gano el usuario, es
-	 * decir, aquellas que cuando se cerraron, el poseia la pujaMayor.
+	 * Coleccion que guarda todas las subastas creadas/generadas por
+	 * el usuario, sea cual sea su estado (ABIERTA, CERRADA, EJECUTADA).
 	 */
-	List<Subasta> subastasGanadas = new ArrayList<Subasta>();
+	List<Subasta> misSubastas = new ArrayList<Subasta>();
 	
 //	CONSTRUCTORES
 	
@@ -27,6 +27,9 @@ public class Usuario {
 	 */
 	public void consultarSubastasGanadas() {
 		// FORMA ANTIGUA DE HACERLO
+//		Esta forma tenia en cuenta la anterior coleccion de subastasGanadas que 
+//		se suprimio por hacerlo todo con el metodo Stream solo con 2 colecciones
+//		todo.
 //		// Comprueba si ha ganado subastas...
 //		if (subastasGanadas.isEmpty()) {
 //			System.out.println("No has ganado ninguna subasta aun.");
@@ -43,24 +46,36 @@ public class Usuario {
 //			}
 //		}
 		
-		// Comprueb si ha ganado alguna subasta
-		if (subastasGanadas.isEmpty()) {
+		// Comprueba si ha ganado alguna subasta
+		if (pujasAceptadas.isEmpty()) {
 			System.out.println("No has ganado ninguna subasta aun");
 		} else {
 			// Se imprimen los datos de las subastas ganadas.
-			subastasGanadas.stream()
+			pujasAceptadas.stream()
+			.filter(p -> p.getCANTIDAD() == p.getSUBASTA().getPujaMayor().getCANTIDAD())
 			.forEach(s -> System.out.println("*******"
-					+ "\nSubasta de " + s.getDESCRIPCION()
-					+ "\nCreada por " + s.getPROPIETARIO() + " en " + s.getFechaCreacion()
-					+ " y finalizada en " + s.getFechaLimite()
-					+ "\nGanada con " + s.getPujaMayor().getCANTIDAD() + " euros, en "
-					+ s.getPujaMayor().getFECHA()));
+					+ "\nSubasta de " + s.getSUBASTA().getDESCRIPCION()
+					+ "\nCreada por " + s.getSUBASTA().getPROPIETARIO() + " en " 
+						+ s.getSUBASTA().getFechaCreacion()
+						+ " y finalizada en " + s.getSUBASTA().getFechaLimite()
+					+ "\nGanada con " + s.getCANTIDAD() + " euros, en " + s.getFECHA()));
 		}
-//		HAY UNA FORMA DIFERENTE, QUE SERIA CONSULTAR TODAS MIS PUJAS, Y VER
-//		CUALES DE ELLAS TIENEN EL MISMO VALOR QUE LA PUJA MAYOR DE ESA SUBASTA. 
-//		ESO AHORRARIA UNA COLECCION, PERO HAY QUE PREGUNTAR.
+		
 	}	
 	
+	public void consultarMisSubastas() {
+		// FORMA ANTIGUA DE HACERLO
+		if (misSubastas.isEmpty()) {
+			System.out.println("Aun no has creado ninguna subasta.");
+		} else {
+			for (Subasta subasta : misSubastas) {
+				System.out.println("********");
+				System.out.println("Subasta: " + subasta.getDESCRIPCION());
+				System.out.println("Estado: " + subasto.);
+			}
+		}
+		
+	}
 //	SETTERS & GETTERS
 	public List<Subasta> getSubastasGanadas() {
 		return subastasGanadas;
