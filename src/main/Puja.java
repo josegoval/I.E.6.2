@@ -21,7 +21,7 @@ public class Puja {
 	/**
 	 * Usuario a la que pertenece dicha Puja.
 	 */
-	private final Usuario	USUARIO;
+	private final Usuario USUARIO;
 	/**
 	 * Fecha (momento exacto) en el que se realizo la Puja.
 	 */

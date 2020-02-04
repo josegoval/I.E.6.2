@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Clase de Usuario.
  * 
- * @author Jose
+ * @author Jose Manuel Gomez Martinez
  * @since 02/02/2020
  */
 public class Usuario {
@@ -63,22 +63,47 @@ public class Usuario {
 		
 	}	
 	
+	/**
+	 * Metodo que devuelve la informacion de las subastas creadas
+	 * por el usuario, si ha creado previamente alguna. En caso contrario
+	 * se le avisara de que no ha creado ninguna aun.
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 04/02/2020
+	 */
 	public void consultarMisSubastas() {
 		// FORMA ANTIGUA DE HACERLO
+//		if (misSubastas.isEmpty()) {
+//			System.out.println("Aun no has creado ninguna subasta.");
+//		} else {
+//			for (Subasta subasta : misSubastas) {
+//				System.out.println("********");
+//				System.out.println("Subasta: " + subasta.getDESCRIPCION());
+//				System.out.println("Estado: " + subasta.getEstado().name());
+//				System.out.println("Fecha de creacion: " + subasta.getFechaCreacion());
+//				System.out.println("Fecha de cierre: " + subasta.getFechaLimite());
+//				System.out.println("Puja Mayor: " + subasta.getPujaMayor().getCANTIDAD());
+//			}
+//		}
+		
+		// Consulto si ha creado subastas primero...
 		if (misSubastas.isEmpty()) {
 			System.out.println("Aun no has creado ninguna subasta.");
 		} else {
-			for (Subasta subasta : misSubastas) {
+			misSubastas.stream()
+			.forEach(s -> {
 				System.out.println("********");
-				System.out.println("Subasta: " + subasta.getDESCRIPCION());
-				System.out.println("Estado: " + subasto.);
-			}
+				System.out.println("Subasta: " + s.getDESCRIPCION());
+				System.out.println("Fecha de creacion: " + s.getFechaCreacion());
+				System.out.println("Fecha de cierre: " + s.getFechaLimite());
+				System.out.println("Puja Mayor: " + s.getPujaMayor().getCANTIDAD() + "€");
+			});
 		}
 		
 	}
+
 //	SETTERS & GETTERS
-	public List<Subasta> getSubastasGanadas() {
-		return subastasGanadas;
+	public List<Subasta> getMisSubastas() {
+		return misSubastas;
 	}
 			
 }
