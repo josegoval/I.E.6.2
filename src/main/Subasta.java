@@ -223,7 +223,8 @@ public class Subasta {
 // METODOS PRIVADOS
 	/**
 	 * Metodo privado utilizado exclusivamente en pujar() para realizar
-	 * definitivamente una puja con la cantidad dada. Su objetivo es la 
+	 * definitivamente una puja con la cantidad dada y guardar dicha
+	 * puja, en la coleccion del usuario. Su objetivo es la 
 	 * reduccion de codigo repetido.
 	 * @param pujador Usuario que realizara la puja.
 	 * @param cantidad Cantidad por la que pujara.
@@ -232,8 +233,12 @@ public class Subasta {
 	 * @since 01/02/2020
 	 */
 	private void realizarPujaConValor(Usuario pujador, double cantidad) {
+		// Se crea la puja
 		pujaMayor = new Puja(this, cantidad, pujador);
+		// Se guarda en las pujas de esta subasta
 		pujas.add(pujaMayor);
+		// Se guarda en las pujas realizadas por el usuario.
+		pujador.getPujasAceptadas().add(pujaMayor);
 	}
 	
 //	SETTERS & GETTERS

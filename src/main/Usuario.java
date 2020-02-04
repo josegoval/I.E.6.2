@@ -15,13 +15,29 @@ public class Usuario {
 	 * Coleccion que guarda todas las subastas creadas/generadas por
 	 * el usuario, sea cual sea su estado (ABIERTA, CERRADA, EJECUTADA).
 	 */
-	List<Subasta> misSubastas = new ArrayList<Subasta>();
+	private List<Subasta> misSubastas = new ArrayList<Subasta>();
 	
 //	CONSTRUCTORES
 	
 //	METODOS
 	/**
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 04/02/2020
+	 */
+	public void crearSubasta() {
+		// Esta primera variable aun queda a la espera del desarrollo de Manuel
+		Subasta subastaCreada = new Subasta(propietario, descripcion, fechaLimite);
+		// Guarda la subasta, en las subastas creadas por el usuario
+		misSubastas.add(subastaCreada);
+		
+//		PODRIA SER QUE TUVIESE RETURN SUBASTA PARA UNA MAYOR ACCESIBILIDAD
+		
+	}
+	
+	/**
 	 * Imprime los datos de de las subastas ganadas si existiese alguna.
+	 * Para que una subasta este ganada, dicha subasta no puede estar abierta,
+	 * y ademas la pujaMayor tiene que coincidir con la puja.
 	 * @author Jose Manuel Gomez Martinez
 	 * @since 02/02/2020
 	 */
@@ -52,7 +68,8 @@ public class Usuario {
 		} else {
 			// Se imprimen los datos de las subastas ganadas.
 			pujasAceptadas.stream()
-			.filter(p -> p.getCANTIDAD() == p.getSUBASTA().getPujaMayor().getCANTIDAD())
+			.filter(p -> p == p.getSUBASTA().getPujaMayor() &&
+					p.getSUBASTA().getEstado()!=EstadoSubasta.ABIERTA)
 			.forEach(s -> System.out.println("*******"
 					+ "\nSubasta de " + s.getSUBASTA().getDESCRIPCION()
 					+ "\nCreada por " + s.getSUBASTA().getPROPIETARIO() + " en " 
