@@ -20,7 +20,7 @@ public class SubastaDAO {
 	/**
 	 * SuperDAO donde se guarda la relacion de los tres.
 	 */
-	SuperDAO superDAO;
+	SuperDAO superDao;
 	
 //	CONSTRUCTORES
 	/**
@@ -31,7 +31,7 @@ public class SubastaDAO {
 	 */
 	public SubastaDAO(SuperDAO superDAO) {
 		subastas = new ArrayList<>();
-		this.superDAO = superDAO;
+		this.superDao = superDAO;
 	}
 
 //	METODOS
@@ -45,11 +45,11 @@ public class SubastaDAO {
 	}
 	
 	public SuperDAO getSuperDAO() {
-		return superDAO;
+		return superDao;
 	}
 	
 	public void setSuperDAO(SuperDAO superDAO) {
-		this.superDAO = superDAO;
+		this.superDao = superDAO;
 	}
 	
 }
