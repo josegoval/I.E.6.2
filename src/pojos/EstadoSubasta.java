@@ -1,4 +1,4 @@
-package main;
+package pojos;
 
 /**
  * ENUM que engloba todos los estados de la subasta.
