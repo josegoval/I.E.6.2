@@ -8,8 +8,8 @@ import java.util.Scanner;
 /**
  * Clase de Usuario.
  * 
- * @author Jose 
- * @author Manuel
+ * @author Jose Manuel Gomez Martinez
+ * @author Manuel Jimenez Jimenez
  * @since 02/02/2020
  */
 public class Usuario {
