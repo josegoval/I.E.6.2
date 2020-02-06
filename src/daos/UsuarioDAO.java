@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import pojos.EstadoSubasta;
+import pojos.Puja;
 import pojos.Subasta;
 import pojos.Usuario;
 
@@ -98,12 +100,12 @@ public class UsuarioDAO {
 	}
 	
 	/**
-	 * * Crea una subasta que estara relacionada con el usuario
+	 * Crea una subasta que estara relacionada con el usuario
 	 * que la cree como PROPIETARIO.
-	 * @param keyPropietario Clave del usuario propietario (NAME)..
+	 * @param keyPropietario Clave del usuario propietario (NAME).
 	 * @param DESCRIPCION Descripcion de la subasta a crear.
 	 * @param fechaLimite Fecha limite de la subasta (cuando se cerrara).
-	 * @author Jose Manuel Gomez Martinez
+	 * @author Manuel Jimenez Jimenez
 	 * @since 04/02/2020
 	 */
 	public void crearSubasta(String keyPropietario, String DESCRIPCION, LocalDateTime fechaLimite) {
@@ -201,7 +203,7 @@ public class UsuarioDAO {
 		// Busca las subastas que pertenezcan al usuario
 		.filter(subasta -> subasta.getPROPIETARIO() == usuario)
 		.collect(Collectors.toList());
-		
+		// Imprime los resultados de la busqueda.
 		if (busqueda.isEmpty()) {
 			System.out.println("Aun no has creado ninguna subasta.");
 		} else {
@@ -217,6 +219,36 @@ public class UsuarioDAO {
 					System.out.println("Puja Mayor: " + s.getPujaMayor().getCANTIDAD() + "€");
 				}
 			}); 
+		}
+		
+	}
+	
+	/**
+	 * Consulta e imprime la informacion de las pujas realizadas por el usuario.
+	 * @param usuarioKey ClavePrimaria-NAME del usuario al que consultar.
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 06/02/2020
+	 */
+	public void consultarPujas(String usuarioKey) {
+		Usuario usuario = usuarios.get(usuarioKey);
+		// Busca las pujas existentes
+		List<Puja> busqueda = superDao.getPujas().getPujas().stream()
+		// Busca las pujas del usuario
+		.filter(puja -> puja.getUSUARIO() == usuario)
+		.collect(Collectors.toList());
+		// Imprimo los resultados de la busqueda
+		if (busqueda.isEmpty()) {
+			System.out.println("No has realizado ninguna puja aun.");
+		} else {
+			AtomicInteger contador = new AtomicInteger(0);
+			busqueda.stream()
+			.forEach(puja -> {
+				System.out.println("*** SUBASTA " + contador.incrementAndGet() + " ***");
+				System.out.println("Subasta en la que se realizo: " + puja.getSUBASTA().getDESCRIPCION());
+				System.out.println("Creador de la subasta: " + puja.getSUBASTA().getPROPIETARIO().getNAME());
+				System.out.println("Fecha de la puja: " + puja.getFECHA());
+				System.out.println("Cantidad de la puja: " + puja.getCANTIDAD() + "€");
+			});
 		}
 		
 	}

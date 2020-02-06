@@ -19,6 +19,7 @@ public class Main {
 		baseDeDatos.getUsuarios().consultarSubastasGanadas("Kanachan");
 		baseDeDatos.getUsuarios().consultarMisSubastas("Kanachan");
 		
+		Usuario manolo = baseDeDatos.getUsuarios().getUsuarios().get("Manolo");
 //		List<Puja> aaa = new ArrayList<Puja>();
 //		
 //		aaa.stream().forEach(System.out.println("ahahhaa"));

@@ -1,8 +1,5 @@
 package pojos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Clase de Usuario.
  * 
@@ -21,12 +18,6 @@ public class Usuario {
 	 */
 	private double credito;
 	
-//	/**
-//	 * Coleccion que guarda todas las subastas creadas/generadas por
-//	 * el usuario, sea cual sea su estado (ABIERTA, CERRADA, EJECUTADA).
-//	 */
-//	private List<Subasta> misSubastas = new ArrayList<Subasta>();
-	
 //	CONSTRUCTORES
 	/**
 	 * Constructor que inicializa todos los atributos de la clase.
@@ -39,11 +30,6 @@ public class Usuario {
 	}
 	
 //	METODOS
-	
-	
-	
-	
-
 //	SETTERS & GETTERS
 	public double getCredito() {
 		return credito;
@@ -56,8 +42,5 @@ public class Usuario {
 	public String getNAME() {
 		return NAME;
 	}
-//	public List<Subasta> getMisSubastas() {
-//		return misSubastas;
-//	}
 			
 }

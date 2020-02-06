@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pojos.Puja;
+import pojos.Subasta;
+import pojos.Usuario;
 
 /**
  * Clase DAO de Puja.
