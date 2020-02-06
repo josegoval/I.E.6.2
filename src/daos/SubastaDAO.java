@@ -178,6 +178,7 @@ public class SubastaDAO {
 		.collect(Collectors.toList());
 		
 		// Imrpimo los resultados de la busqueda
+		System.out.println("Lista de pujas de la subasta " + subasta.getDESCRIPCION());
 		if (busqueda.isEmpty()) {
 			System.out.println("Esta subasta aun no tiene pujas.");
 		} else {
@@ -263,6 +264,24 @@ public class SubastaDAO {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	/**
+	 * Imprime por consola los datos de la pujaMayor de una subasta,
+	 * si esta contiene alguna.
+	 * @param subasta Subasta a consultar
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 06/02/2020
+	 */
+	public void mostrarPujaMayor(Subasta subasta) {
+		if (subasta.getPujaMayor()==null) {
+			System.out.println("No tiene ninguna puja aun registrada.");
+		} else {
+			System.out.println("*** Puja Mayor ***");
+			System.out.println("Producto: " + subasta.getDESCRIPCION());
+			System.out.println("Usuario: " + subasta.getPujaMayor().getUSUARIO().getNAME());
+			System.out.println("Cantidad: " + subasta.getPujaMayor().getCANTIDAD());
 		}
 	}
 	

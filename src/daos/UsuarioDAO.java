@@ -162,10 +162,10 @@ public class UsuarioDAO {
 		.collect(Collectors.toList());
 		
 		// Imprime los resultados de la busqueda
+		System.out.println("Subastas ganadas del usuario " + usuarioKey);
 		if (busqueda.isEmpty()) {
 			System.out.println("No has ganado ninguna subasta aun.");
 		} else {
-			System.out.println("Subastas ganadas de " + usuario.getNAME());
 			busqueda.forEach(s -> System.out.println("*******"
 				+ "\nSubasta de " + s.getDESCRIPCION()
 				+ "\nCreada por " + s.getPROPIETARIO().getNAME() + " en " 
@@ -207,6 +207,7 @@ public class UsuarioDAO {
 		.filter(subasta -> subasta.getPROPIETARIO() == usuario)
 		.collect(Collectors.toList());
 		// Imprime los resultados de la busqueda.
+		System.out.println("Subastas del usuario " + usuarioKey);
 		if (busqueda.isEmpty()) {
 			System.out.println("Aun no has creado ninguna subasta.");
 		} else {
@@ -240,13 +241,14 @@ public class UsuarioDAO {
 		.filter(puja -> puja.getUSUARIO() == usuario)
 		.collect(Collectors.toList());
 		// Imprimo los resultados de la busqueda
+		System.out.println("Pujas del usuario: " + usuarioKey);
 		if (busqueda.isEmpty()) {
 			System.out.println("No has realizado ninguna puja aun.");
 		} else {
 			AtomicInteger contador = new AtomicInteger(0);
 			busqueda.stream()
 			.forEach(puja -> {
-				System.out.println("*** SUBASTA " + contador.incrementAndGet() + " ***");
+				System.out.println("*** PUJA " + contador.incrementAndGet() + " ***");
 				System.out.println("Subasta en la que se realizo: " + puja.getSUBASTA().getDESCRIPCION());
 				System.out.println("Creador de la subasta: " + puja.getSUBASTA().getPROPIETARIO().getNAME());
 				System.out.println("Fecha de la puja: " + puja.getFECHA());
