@@ -186,6 +186,38 @@ public class SubastaDAO {
 		
 	}
 	
+	/**
+	 * Cierra la subasta si ha pasado la fechaLimite, de lo contrario,
+	 * avisara de que aun no se puede cerrar la subasta.
+	 * @param subasta Subasta a cerrar
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 01/02/2020
+	 */
+	public void cerrarSubasta(Subasta subasta) {
+		// Si ha pasado la fecha limite se cerrara la subasta
+		if (LocalDateTime.now().isAfter(subasta.getFechaLimite())) {
+			subasta.setEstado(EstadoSubasta.CERRADA);
+		} else {
+			System.out.println("Aun no se puede cerrar la subasta.");
+		}
+	}
+	
+	/**
+	 * Pregunta si la subasta esta o no cerrada.
+	 * @param subasta Subasta a comprobar.
+	 * @return true = cerrada, false = no esta cerrada.
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 01/02/2020
+	 */
+	public boolean subastaCerrada(Subasta subasta) {
+		if (subasta.getEstado()==EstadoSubasta.CERRADA) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
 	
  //	METODOS PRIVADOS
 	/**
