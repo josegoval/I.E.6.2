@@ -41,10 +41,13 @@ public class PujaDAO {
 	 * @param subasta Subasta a la que pertenece la puja.
 	 * @param cantidad Cantidad a pujar.
 	 * @param usuario Usuario que realizara dicha puja.
+	 * @return (Puja) Devuelve la puja creada para poder referenciarla facilmente.
 	 */
-	public void añadirPuja(Subasta subasta, double cantidad, Usuario usuario) {
-		pujas.add(new Puja(subasta, cantidad, usuario));
-	}
+	public Puja añadirPuja(Subasta subasta, double cantidad, Usuario usuario) {
+		Puja pujaNueva = new Puja(subasta, cantidad, usuario);
+		pujas.add(pujaNueva);
+		return pujaNueva;
+	}  
 	
 //	METODOS REFERENTES A CADA SUBASTA
 //	SETTERS & GETTERS

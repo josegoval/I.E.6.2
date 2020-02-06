@@ -34,6 +34,7 @@ public class Subasta {
 	/**
 	 * Coleccion (ArrayList) que guarda todas las pujas aceptadas
 	 * que ha recibido la subasta.
+	 * @deprecated Con el sistema DAO ya no tiene sentido.
 	 */
 	private List<Puja> pujas = new ArrayList<Puja>();
 	/**
@@ -51,7 +52,7 @@ public class Subasta {
 	/**
 	 * Constructor que inicializa todos los parametros de la subasta.
 	 * Ha de ser usado a traves de un usuario que cree la subasta en su
-	 * respectivo metodo crearSubasta()
+	 * respectivo metodo crearSubasta().
 	 * @param propietario Usuario propietario de la subasta.
 	 * @param descripcion Descripcion de la subasta.
 	 * @param fechaLimite Fecha limite de la subasta.
@@ -64,93 +65,11 @@ public class Subasta {
 		estado = EstadoSubasta.ABIERTA;
 		fechaCreacion = LocalDateTime.now();
 		this.fechaLimite = fechaLimite;
-		
 	}
 	
-	//IDEA... 
-	/*
-	 * Se podrian crear constructores que añadiese dias, horas o minutos,
-	 * en vez de hacerlo totalmente con todo datetime a lo bestia.
-	 */
-
 //	METODOS
 // METODOS PUBLICOS
-	/**
-	 * Metodo que realiza una puja en dicha subasta, siempre y cuando
-	 * el pujador sea diferente al propietario, tenga suficiente credito,
-	 * y sea mayor a la puja mayor (si existen pujas).
-	 * Tambien ES IMPORTANTE RECALCAR que si la CANTIDAD = 0 se realizara
-	 * una puja con un euro mas de la cantidad de la pujaMayor. Si no
-	 * existiese dicha puja, el valor seria de 1.
-	 * @param pujador Usuario que realizara la puja.
-	 * @param cantidad Cantidad por la que pujara. Si cantidad = 0, pujara
-	 * por 1 euro mas de la cantidad de la pujaMayor si existiese, en su 
-	 * defecto, se realizara una puja de 1 euro.
-	 * @see #realizarPujaConValor(Usuario, double)
-	 * @author Jose Manuel Gomez Martinez
-	 * @since 01/02/2020 
-	 */
-	public void Pujar(Usuario pujador, double cantidad) {
-		// Comprueba el estado de la subasta primero.
-		if (estado==EstadoSubasta.ABIERTA) {
-			// Comprueba si la cantidad pujada es mayor a 0
-			if (cantidad > 0) {
-				// Comprueba si el pujador y el propietario de la subasta son diferentes
-				// usuarios.
-				if (PROPIETARIO != pujador) {
-					// Si el usuario tiene suficiente credito...
-					if (pujador.getCredito() >= cantidad) {
-						// Si aun nadie ha pujado...
-						if (pujas.isEmpty()) {
-							// Si ha pujado sin cantidad, se le asigna 1 euro al valor
-							// de entrada.
-							if (cantidad == 0) {
-								realizarPujaConValor(pujador, 1);
-							} else {
-								// Se crea una nueva puja, asignada a la mayor y se 
-								// guarda en el registro de la coleccion.
-								realizarPujaConValor(pujador, cantidad);
-							}
-						} else {
-							// Si ya existen pujas...
-							// Si se ha pujado sin cantidad, se le asinga 1 euro mas
-							// de la puja mayor.
-							if (cantidad == 0) {
-								// Si tiene suficiente credito...
-								if (pujaMayor.getCANTIDAD()+1 <= pujador.getCredito()) {
-									realizarPujaConValor(pujador, pujaMayor.getCANTIDAD()+1);
-								} else {
-									System.out.println("No tiene suficiente credito"
-											+ " para realizar dicha puja.");
-								}
-							} else {
-								// Comprueba si la cantidad es superior a la de la puja
-								// mayor.
-								if (cantidad > pujaMayor.getCANTIDAD()) {
-									realizarPujaConValor(pujador, cantidad);
-								} else {
-									// Puja no aceptada.
-									System.out.println("Puja no aceptada.");
-								}
-							}
-						}
-					} else {
-						System.out.println("No tiene suficiente credito para realizar"
-								+ " dicha puja.");
-						// Se podria implementar en un futuro preguntarle si quiere 
-						// introducir mas credito.
-					}
-				} else {
-					System.out.println("No puedes pujar en su propia subasta.");
-				}
-			} else {
-				System.out.println("No puedes pujar en negativo.");
-			}
-		} else {
-			System.out.println("La subasta esta " + estado.name() + ". No puede"
-					+ " pujar en ella.");
-		}
-	}
+	
 	
 	/**
 	 * Consulta e imprime por consola todas las pujas que ha recibido
@@ -221,27 +140,12 @@ public class Subasta {
 	}
 	
 // METODOS PRIVADOS
-	/**
-	 * Metodo privado utilizado exclusivamente en pujar() para realizar
-	 * definitivamente una puja con la cantidad dada y guardar dicha
-	 * puja, en la coleccion del usuario. Su objetivo es la 
-	 * reduccion de codigo repetido.
-	 * @param pujador Usuario que realizara la puja.
-	 * @param cantidad Cantidad por la que pujara.
-	 * @see #Pujar(Usuario, double)
-	 * @author Jose Manuel Gomez Martinez
-	 * @since 01/02/2020
-	 */
-	private void realizarPujaConValor(Usuario pujador, double cantidad) {
-		// Se crea la puja
-		pujaMayor = new Puja(this, cantidad, pujador);
-		// Se guarda en las pujas de esta subasta
-		pujas.add(pujaMayor);
-		// Se guarda en las pujas realizadas por el usuario.
-		pujador.getPujasAceptadas().add(pujaMayor);
-	}
+	
 	
 //	SETTERS & GETTERS
+	/**
+	 * @deprecated
+	 */
 	public List<Puja> getPujas() {
 		return pujas;
 	}
