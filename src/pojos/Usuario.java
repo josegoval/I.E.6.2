@@ -42,53 +42,6 @@ public class Usuario {
 	
 	
 	
-	
-	/**
-	 * Imprime los datos de de las subastas ganadas si existiese alguna.
-	 * Para que una subasta este ganada, dicha subasta no puede estar abierta,
-	 * y ademas la pujaMayor tiene que coincidir con la puja.
-	 * @author Jose Manuel Gomez Martinez
-	 * @since 02/02/2020
-	 */
-	public void consultarSubastasGanadas() {
-		// FORMA ANTIGUA DE HACERLO
-//		Esta forma tenia en cuenta la anterior coleccion de subastasGanadas que 
-//		se suprimio por hacerlo todo con el metodo Stream solo con 2 colecciones
-//		todo.
-//		// Comprueba si ha ganado subastas...
-//		if (subastasGanadas.isEmpty()) {
-//			System.out.println("No has ganado ninguna subasta aun.");
-//		} else {
-//			// Imprime los datos de las subastas ganadas...
-//			for (Subasta subasta : subastasGanadas) {
-//				System.out.println("*******");
-//				System.out.println("Subasta de " + subasta.getDESCRIPCION());
-//				System.out.println("Creada por " + subasta.getPROPIETARIO()
-//				+ " en " + subasta.getFechaCreacion() + " y finalizada en "
-//				+ subasta.getFechaLimite());
-//				System.out.println("Ganada con " + subasta.getPujaMayor().getCANTIDAD()
-//						+ " euros, en " + subasta.getPujaMayor().getFECHA());
-//			}
-//		}
-		
-		// Comprueba si ha ganado alguna subasta
-		if (pujasAceptadas.isEmpty()) {
-			System.out.println("No has ganado ninguna subasta aun");
-		} else {
-			// Se imprimen los datos de las subastas ganadas.
-			pujasAceptadas.stream()
-			.filter(p -> p == p.getSUBASTA().getPujaMayor() &&
-					p.getSUBASTA().getEstado()!=EstadoSubasta.ABIERTA)
-			.forEach(s -> System.out.println("*******"
-					+ "\nSubasta de " + s.getSUBASTA().getDESCRIPCION()
-					+ "\nCreada por " + s.getSUBASTA().getPROPIETARIO() + " en " 
-						+ s.getSUBASTA().getFechaCreacion()
-						+ " y finalizada en " + s.getSUBASTA().getFechaLimite()
-					+ "\nGanada con " + s.getCANTIDAD() + " euros, en " + s.getFECHA()));
-		}
-		
-	}	
-	
 	/**
 	 * Metodo que devuelve la informacion de las subastas creadas
 	 * por el usuario, si ha creado previamente alguna. En caso contrario

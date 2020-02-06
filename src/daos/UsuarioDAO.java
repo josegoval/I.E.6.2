@@ -3,7 +3,9 @@ package daos;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import pojos.EstadoSubasta;
 import pojos.Subasta;
 import pojos.Usuario;
 
@@ -34,6 +36,7 @@ public class UsuarioDAO {
 	public UsuarioDAO(SuperDAO superDao) {
 		usuarios = new HashMap<>();
 		this.superDao=superDao;
+		añadirUsuario("Kanachan", 100);
 	}
 	
 //	METODOS
@@ -112,11 +115,11 @@ public class UsuarioDAO {
 	/**
 	 * Imprime los datos de de las subastas ganadas si existiese alguna.
 	 * Para que una subasta este ganada, dicha subasta no puede estar abierta,
-	 * y ademas la pujaMayor tiene que coincidir con la puja.
+	 * y ademas la pujaMayor tiene que haber estado realizada con el usuario.
 	 * @author Jose Manuel Gomez Martinez
 	 * @since 02/02/2020
 	 */
-	public void consultarSubastasGanadas() {
+	public void consultarSubastasGanadas(String usuarioKey) {
 		// FORMA ANTIGUA DE HACERLO (Anterior al DAO)
 //		Esta forma tenia en cuenta la anterior coleccion de subastasGanadas que 
 //		se suprimio por hacerlo todo con el metodo Stream solo con 2 colecciones
@@ -137,22 +140,38 @@ public class UsuarioDAO {
 //			}
 //		}
 		
+		// Busco el usuario sobre el que analizar
+		Usuario usuario = usuarios.get(usuarioKey);
 		
-		// Comprueba si ha ganado alguna subasta
-		if (pujasAceptadas.isEmpty()) {
-			System.out.println("No has ganado ninguna subasta aun");
-		} else {
-			// Se imprimen los datos de las subastas ganadas.
-			pujasAceptadas.stream()
-			.filter(p -> p == p.getSUBASTA().getPujaMayor() &&
-					p.getSUBASTA().getEstado()!=EstadoSubasta.ABIERTA)
+		try {
+			// Busca todas las subastas primero y las paso a Stream
+			listasuperDao.getSubastas().getSubastas().stream()
+			// Busca las subastas que no esten en el estado ABIERTA
+			.filter(subasta -> subasta.getEstado() != EstadoSubasta.ABIERTA)
+			// Comprueba que los dos usuarios sean el mismo, es decir, que sea el ganador
+			// de la pujaMayor, lo que implica que gano la subasta.
+			.filter(subasta -> subasta.getPujaMayor().getUSUARIO() == usuario)
+			.collect(Collectors.toList());
 			.forEach(s -> System.out.println("*******"
-					+ "\nSubasta de " + s.getSUBASTA().getDESCRIPCION()
-					+ "\nCreada por " + s.getSUBASTA().getPROPIETARIO() + " en " 
-						+ s.getSUBASTA().getFechaCreacion()
-						+ " y finalizada en " + s.getSUBASTA().getFechaLimite()
-					+ "\nGanada con " + s.getCANTIDAD() + " euros, en " + s.getFECHA()));
+						+ "\nSubasta de " + s.getDESCRIPCION()
+						+ "\nCreada por " + s.getPROPIETARIO().getNAME() + " en " 
+							+ s.getFechaCreacion()
+							+ " y finalizada en " + s.getFechaLimite()
+						+ "\nGanada con " + s.getPujaMayor().getCANTIDAD() + " euros."));
+		} catch (Exception e) {
+//			System.out.println("No has ganado ninguna subasta aun.");
 		}
+
+			//		// Comprueba si ha ganado alguna subasta
+//		if (pujasAceptadas.isEmpty()) {
+//			System.out.println("No has ganado ninguna subasta aun");
+//		} else {
+//			// Se imprimen los datos de las subastas ganadas.
+//			pujasAceptadas.stream()
+//			.filter(p -> p == p.getSUBASTA().getPujaMayor() &&
+//					p.getSUBASTA().getEstado()!=EstadoSubasta.ABIERTA)
+//			.forEach();
+//		}
 		
 	}	
 	
