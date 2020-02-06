@@ -17,6 +17,7 @@ public class Main {
 		
 		baseDeDatos.getUsuarios().crearSubasta("Kanachan", "ninguna", LocalDateTime.now());
 		baseDeDatos.getUsuarios().consultarSubastasGanadas("Kanachan");
+		baseDeDatos.getUsuarios().consultarMisSubastas("Kanachan");
 		
 //		List<Puja> aaa = new ArrayList<Puja>();
 //		

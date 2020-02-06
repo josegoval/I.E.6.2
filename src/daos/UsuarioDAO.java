@@ -197,22 +197,26 @@ public class UsuarioDAO {
 		Usuario usuario = usuarios.get(usuarioKey);
 		
 		// Busca primero todas las subastas y las pasa a stream
-		superDao.getSubastas().getSubastas().stream()
+		List<Subasta> busqueda = superDao.getSubastas().getSubastas().stream()
 		// Busca las subastas que pertenezcan al usuario
 		.filter(subasta -> subasta.getPROPIETARIO() == usuario)
 		.collect(Collectors.toList());
-		// Consulto si ha creado subastas primero...
-		if (misSubastas.isEmpty()) {
+		
+		if (busqueda.isEmpty()) {
 			System.out.println("Aun no has creado ninguna subasta.");
 		} else {
-			misSubastas.stream()
+			busqueda.stream()
 			.forEach(s -> {
 				System.out.println("********");
 				System.out.println("Subasta: " + s.getDESCRIPCION());
 				System.out.println("Fecha de creacion: " + s.getFechaCreacion());
 				System.out.println("Fecha de cierre: " + s.getFechaLimite());
-				System.out.println("Puja Mayor: " + s.getPujaMayor().getCANTIDAD() + "€");
-			});
+				if (s.getPujaMayor()==null) {
+					System.out.println("Puja Mayor: Sin Puja Mayor.");
+				} else {
+					System.out.println("Puja Mayor: " + s.getPujaMayor().getCANTIDAD() + "€");
+				}
+			}); 
 		}
 		
 	}
