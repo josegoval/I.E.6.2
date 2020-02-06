@@ -39,7 +39,6 @@ public class UsuarioDAO {
 	public UsuarioDAO(SuperDAO superDao) {
 		usuarios = new HashMap<>();
 		this.superDao=superDao;
-		añadirUsuario("Kanachan", 100);
 	}
 	
 //	METODOS
@@ -105,14 +104,18 @@ public class UsuarioDAO {
 	 * @param keyPropietario Clave del usuario propietario (NAME).
 	 * @param DESCRIPCION Descripcion de la subasta a crear.
 	 * @param fechaLimite Fecha limite de la subasta (cuando se cerrara).
+	 * @return (Subasta) Devuelve la subasta creada para poder referenciarla
+	 * facilmente.
 	 * @author Manuel Jimenez Jimenez
 	 * @since 04/02/2020
 	 */
-	public void crearSubasta(String keyPropietario, String DESCRIPCION, LocalDateTime fechaLimite) {
+	public Subasta crearSubasta(String keyPropietario, String DESCRIPCION, 
+			LocalDateTime fechaLimite) {
+		Subasta subastaCreada;
 		// Busco el usuario
 		Usuario propietario = usuarios.get(keyPropietario);
 		// Creo y añado la subasta.
-		superDao.getSubastas().añadirSubasta(propietario, DESCRIPCION, fechaLimite);
+		return superDao.getSubastas().añadirSubasta(propietario, DESCRIPCION, fechaLimite);
 	}
 	
 	/**

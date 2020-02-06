@@ -47,12 +47,16 @@ public class SubastaDAO {
 	 * @param PROPIETARIO Usuario creador de la puja.
 	 * @param DESCRIPCION Descripcion asignada a la puja.
 	 * @param fechaLimite Fecha limite de la subasta (cuando se cerrara).
+	 * @return (Subasta) Devuelve la subasta creada para poder referenciarla
+	 * facilmente.
 	 * @author Jose Manuel Gomez Martinez
 	 * @since 06/02/2020
 	 */
-	public void añadirSubasta(Usuario PROPIETARIO, String DESCRIPCION, 
+	public Subasta añadirSubasta(Usuario PROPIETARIO, String DESCRIPCION, 
 			LocalDateTime fechaLimite) {
-		subastas.add(new Subasta(PROPIETARIO, DESCRIPCION, fechaLimite));
+		Subasta subastaCreada = new Subasta(PROPIETARIO, DESCRIPCION, fechaLimite);
+		subastas.add(subastaCreada);
+		return subastaCreada;
 	}
 	
 //	METODOS REFERENTES A CADA SUBASTA
