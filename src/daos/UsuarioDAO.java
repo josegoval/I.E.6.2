@@ -2,6 +2,7 @@ package daos;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -143,37 +144,78 @@ public class UsuarioDAO {
 		// Busco el usuario sobre el que analizar
 		Usuario usuario = usuarios.get(usuarioKey);
 		
-		try {
-			// Busca todas las subastas primero y las paso a Stream
-			listasuperDao.getSubastas().getSubastas().stream()
-			// Busca las subastas que no esten en el estado ABIERTA
-			.filter(subasta -> subasta.getEstado() != EstadoSubasta.ABIERTA)
-			// Comprueba que los dos usuarios sean el mismo, es decir, que sea el ganador
-			// de la pujaMayor, lo que implica que gano la subasta.
-			.filter(subasta -> subasta.getPujaMayor().getUSUARIO() == usuario)
-			.collect(Collectors.toList());
-			.forEach(s -> System.out.println("*******"
-						+ "\nSubasta de " + s.getDESCRIPCION()
-						+ "\nCreada por " + s.getPROPIETARIO().getNAME() + " en " 
-							+ s.getFechaCreacion()
-							+ " y finalizada en " + s.getFechaLimite()
-						+ "\nGanada con " + s.getPujaMayor().getCANTIDAD() + " euros."));
-		} catch (Exception e) {
-//			System.out.println("No has ganado ninguna subasta aun.");
+		
+		// Busca todas las subastas primero y las paso a Stream
+		List<Subasta> busqueda = superDao.getSubastas().getSubastas().stream()
+		// Busca las subastas que no esten en el estado ABIERTA
+		.filter(subasta -> subasta.getEstado() != EstadoSubasta.ABIERTA)
+		// Busca aquellas que tienen una pujaMayor asignada
+		.filter(subasta -> subasta.getPujaMayor() != null)
+		// Comprueba que los dos usuarios sean el mismo, es decir, que sea el ganador
+		// de la pujaMayor, lo que implica que gano la subasta.
+		.filter(subasta -> subasta.getPujaMayor().getUSUARIO() == usuario)
+		.collect(Collectors.toList());
+		
+		// Imprime los resultados de la busqueda
+		if (busqueda.isEmpty()) {
+			System.out.println("No has ganado ninguna subasta aun.");
+		} else {
+			System.out.println("Subastas ganadas de " + usuario.getNAME());
+			busqueda.forEach(s -> System.out.println("*******"
+				+ "\nSubasta de " + s.getDESCRIPCION()
+				+ "\nCreada por " + s.getPROPIETARIO().getNAME() + " en " 
+				+ s.getFechaCreacion()
+				+ " y finalizada en " + s.getFechaLimite()
+				+ "\nGanada con " + s.getPujaMayor().getCANTIDAD() + " euros."));
 		}
-
-			//		// Comprueba si ha ganado alguna subasta
-//		if (pujasAceptadas.isEmpty()) {
-//			System.out.println("No has ganado ninguna subasta aun");
-//		} else {
-//			// Se imprimen los datos de las subastas ganadas.
-//			pujasAceptadas.stream()
-//			.filter(p -> p == p.getSUBASTA().getPujaMayor() &&
-//					p.getSUBASTA().getEstado()!=EstadoSubasta.ABIERTA)
-//			.forEach();
-//		}
 		
 	}	
+	
+	/**
+	 * Metodo que devuelve la informacion de las subastas creadas
+	 * por el usuario, si ha creado previamente alguna. En caso contrario
+	 * se le avisara de que no ha creado ninguna aun.
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 04/02/2020
+	 */
+	public void consultarMisSubastas(String usuarioKey) {
+		// FORMA ANTIGUA DE HACERLO (Anterior al DAO)
+//		if (misSubastas.isEmpty()) {
+//			System.out.println("Aun no has creado ninguna subasta.");
+//		} else {
+//			for (Subasta subasta : misSubastas) {
+//				System.out.println("********");
+//				System.out.println("Subasta: " + subasta.getDESCRIPCION());
+//				System.out.println("Estado: " + subasta.getEstado().name());
+//				System.out.println("Fecha de creacion: " + subasta.getFechaCreacion());
+//				System.out.println("Fecha de cierre: " + subasta.getFechaLimite());
+//				System.out.println("Puja Mayor: " + subasta.getPujaMayor().getCANTIDAD());
+//			}
+//		}
+		
+		// Busco el usuario sobre el que analizar
+		Usuario usuario = usuarios.get(usuarioKey);
+		
+		// Busca primero todas las subastas y las pasa a stream
+		superDao.getSubastas().getSubastas().stream()
+		// Busca las subastas que pertenezcan al usuario
+		.filter(subasta -> subasta.getPROPIETARIO() == usuario)
+		.collect(Collectors.toList());
+		// Consulto si ha creado subastas primero...
+		if (misSubastas.isEmpty()) {
+			System.out.println("Aun no has creado ninguna subasta.");
+		} else {
+			misSubastas.stream()
+			.forEach(s -> {
+				System.out.println("********");
+				System.out.println("Subasta: " + s.getDESCRIPCION());
+				System.out.println("Fecha de creacion: " + s.getFechaCreacion());
+				System.out.println("Fecha de cierre: " + s.getFechaLimite());
+				System.out.println("Puja Mayor: " + s.getPujaMayor().getCANTIDAD() + "€");
+			});
+		}
+		
+	}
 	
 //	SETTERS & GETTERS
 	public Map<String, Usuario> getUsuarios() {
