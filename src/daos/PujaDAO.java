@@ -33,6 +33,18 @@ public class PujaDAO {
 	}
 
 //	METODOS
+//	METODOS REFERENTES A LA BASE DE DATOS
+	/**
+	 * Crea y añade una puja con todos sus atributos.
+	 * @param subasta Subasta a la que pertenece la puja.
+	 * @param cantidad Cantidad a pujar.
+	 * @param usuario Usuario que realizara dicha puja.
+	 */
+	public void añadirPuja(Subasta subasta, double cantidad, Usuario usuario) {
+		pujas.add(new Puja(subasta, cantidad, usuario));
+	}
+	
+//	METODOS REFERENTES A CADA SUBASTA
 //	SETTERS & GETTERS
 	public List<Puja> getPujas() {
 		return pujas;

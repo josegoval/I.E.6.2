@@ -1,9 +1,11 @@
 package daos;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import pojos.Subasta;
+import pojos.Usuario;
 
 /**
  * Clase DAO de Subasta.
@@ -35,6 +37,21 @@ public class SubastaDAO {
 	}
 
 //	METODOS
+//	METODOS REFERENTES A LA BASE DE DATOS
+	/**
+	 * Crea y añade una subasta con todos sus atributos.
+	 * @param PROPIETARIO Usuario creador de la puja.
+	 * @param DESCRIPCION Descripcion asignada a la puja.
+	 * @param fechaLimite Fecha limite de la subasta (cuando se cerrara).
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 06/02/2020
+	 */
+	public void añadirSubasta(Usuario PROPIETARIO, String DESCRIPCION, 
+			LocalDateTime fechaLimite) {
+		subastas.add(new Subasta(PROPIETARIO, DESCRIPCION, fechaLimite));
+	}
+	
+//	METODOS REFERENTES A CADA SUBASTA
 //	SETTERS & GETTERS
 	public List<Subasta> getSubastas() {
 		return subastas;

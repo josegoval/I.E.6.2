@@ -39,39 +39,9 @@ public class Usuario {
 	}
 	
 //	METODOS
-	/**
-	 * Incrementa el credito del usuario en la cantidad dada.
-	 * @param cantidad Cantidad a sumar.
-	 * @author Manuel Jimenez Jimenez
-	 * @since 02/02/2020
-	 */
-	public void incrementarCredito(double cantidad) {
-		credito += cantidad;
-	}
 	
-	/**
-	 * Decrementa el credito del usuario en la cantidad dada.
-	 * @param cantidad Cantidad a restar.
-	 * @author Manuel Jimenez Jimenez
-	 * @since 02/02/2020
-	 */
-	public void decrementarCredito(double cantidad) {
-		credito -= cantidad
-	}
 	
-	/**
-	 * @author Jose Manuel Gomez Martinez
-	 * @since 04/02/2020
-	 */
-	public void crearSubasta() {
-		// Esta primera variable aun queda a la espera del desarrollo de Manuel
-		Subasta subastaCreada = new Subasta(propietario, descripcion, fechaLimite);
-		// Guarda la subasta, en las subastas creadas por el usuario
-		misSubastas.add(subastaCreada);
-		
-//		PODRIA SER QUE TUVIESE RETURN SUBASTA PARA UNA MAYOR ACCESIBILIDAD
-		
-	}
+	
 	
 	/**
 	 * Imprime los datos de de las subastas ganadas si existiese alguna.
