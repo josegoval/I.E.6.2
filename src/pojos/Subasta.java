@@ -139,7 +139,6 @@ public class Subasta {
 		}
 	}
 	
-// METODOS PRIVADOS
 	
 	
 //	SETTERS & GETTERS

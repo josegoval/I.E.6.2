@@ -3,6 +3,8 @@ package daos;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import pojos.EstadoSubasta;
 import pojos.Puja;
@@ -132,6 +134,58 @@ public class SubastaDAO {
 					+ " pujar en ella.");
 		}
 	}
+	
+	/**
+	 * Consulta e imprime por consola todas las pujas que ha recibido
+	 * la subasta hasta el momento actual, mostrando en cada una de ellas
+	 * todos sus datos (Pujador, cantidad y fecha).
+	 * @param subasta Subasta sobre la que consultar.
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 01/02/2020
+	 */
+	public void consultarPujas(Subasta subasta) {
+//		FORMAS ANTIGUAS DE HACERLO (Anterior al DAO)
+//		// Se recorren las pujas por for
+//		System.out.println("*** *** *** *** *** *** ***");
+//		for (int i = 0; i < pujas.size(); i++) {
+//			System.out.println("Puja numero " + i + ":");
+//			System.out.println("Pujador: " + pujas.get(i).getUSUARIO().getNAME());
+//			System.out.println("Cantidad: " + pujas.get(i).getUSUARIO().getCANTIDAD());
+//			System.out.println("Fecha: " + pujas.get(i).getFECHA());
+//		}
+//		System.out.println("*** *** *** *** *** *** ***");
+		
+		// Se recorren por foreach
+//		System.out.println("*** *** *** *** *** *** ***");
+//		int contador = 0;
+//		for (Puja puja : pujas) {
+//			contador++;
+//			System.out.println("Puja numero " + contador + ":");
+//			System.out.println("Pujador: " + puja.getUSUARIO().getNAME());
+//			System.out.println("Cantidad: " + puja.getCANTIDAD());
+//			System.out.println("Fecha: " + puja.getFECHA());
+//		}
+//		System.out.println("*** *** *** *** *** *** ***");
+		
+		AtomicInteger i = new AtomicInteger(0);
+		// Busco las pujas de esa subasta
+		List<Puja> busqueda = superDao.getPujas().getPujas().stream()
+		.filter(puja -> puja.getSUBASTA()==subasta)
+		.collect(Collectors.toList());
+		
+		// Imrpimo los resultados de la busqueda
+		if (busqueda.isEmpty()) {
+			System.out.println("Esta subasta aun no tiene pujas.");
+		} else {
+			busqueda.stream()
+			.forEach(p -> System.out.println("Puja numero " + i.incrementAndGet() + ":"
+				+ "\nPujador: " + p.getUSUARIO().getNAME()
+				+ "\nCantidad: " + p.getCANTIDAD()
+				+ "\nFecha: " + p.getFECHA()));
+		}
+		
+	}
+	
 	
  //	METODOS PRIVADOS
 	/**
