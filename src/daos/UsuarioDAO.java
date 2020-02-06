@@ -111,7 +111,6 @@ public class UsuarioDAO {
 	 */
 	public Subasta crearSubasta(String keyPropietario, String DESCRIPCION, 
 			LocalDateTime fechaLimite) {
-		Subasta subastaCreada;
 		// Busco el usuario
 		Usuario propietario = usuarios.get(keyPropietario);
 		// Creo y añado la subasta.

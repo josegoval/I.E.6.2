@@ -1,8 +1,6 @@
 package main;
 
 import java.time.LocalDateTime;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 import daos.PujaDAO;
 import daos.SubastaDAO;
