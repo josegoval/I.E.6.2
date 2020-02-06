@@ -7,19 +7,58 @@ import java.util.List;
  * Clase de Usuario.
  * 
  * @author Jose Manuel Gomez Martinez
+ * @author Manuel Jimenez Jimenez
  * @since 02/02/2020
  */
 public class Usuario {
 
 	/**
-	 * Coleccion que guarda todas las subastas creadas/generadas por
-	 * el usuario, sea cual sea su estado (ABIERTA, CERRADA, EJECUTADA).
+	 * Nombre fijo del usuario.
 	 */
-	private List<Subasta> misSubastas = new ArrayList<Subasta>();
+	private final String NAME;
+	/**
+	 * Credito actual del usuario.
+	 */
+	private double credito;
+	
+//	/**
+//	 * Coleccion que guarda todas las subastas creadas/generadas por
+//	 * el usuario, sea cual sea su estado (ABIERTA, CERRADA, EJECUTADA).
+//	 */
+//	private List<Subasta> misSubastas = new ArrayList<Subasta>();
 	
 //	CONSTRUCTORES
+	/**
+	 * Constructor que inicializa todos los atributos de la clase.
+	 * @author Manuel Jimenez Jimenez
+	 * @since 02/02/2020
+	 */
+	public Usuario(String nombre, double creditoInicial) {
+		NAME = nombre;
+		credito = creditoInicial;
+	}
 	
 //	METODOS
+	/**
+	 * Incrementa el credito del usuario en la cantidad dada.
+	 * @param cantidad Cantidad a sumar.
+	 * @author Manuel Jimenez Jimenez
+	 * @since 02/02/2020
+	 */
+	public void incrementarCredito(double cantidad) {
+		credito += cantidad;
+	}
+	
+	/**
+	 * Decrementa el credito del usuario en la cantidad dada.
+	 * @param cantidad Cantidad a restar.
+	 * @author Manuel Jimenez Jimenez
+	 * @since 02/02/2020
+	 */
+	public void decrementarCredito(double cantidad) {
+		credito -= cantidad
+	}
+	
 	/**
 	 * @author Jose Manuel Gomez Martinez
 	 * @since 04/02/2020
@@ -119,8 +158,19 @@ public class Usuario {
 	}
 
 //	SETTERS & GETTERS
-	public List<Subasta> getMisSubastas() {
-		return misSubastas;
+	public double getCredito() {
+		return credito;
 	}
+	
+	public void setCredito(double credito) {
+		this.credito = credito;
+	}
+	
+	public String getNAME() {
+		return NAME;
+	}
+//	public List<Subasta> getMisSubastas() {
+//		return misSubastas;
+//	}
 			
 }
