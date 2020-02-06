@@ -22,11 +22,11 @@ public class SubastaDAO {
 	 * Lista que guarda todas las subastas existentes en
 	 * el programa.
 	 */
-	List<Subasta> subastas;
+	private List<Subasta> subastas;
 	/**
 	 * SuperDAO donde se guarda la relacion de los tres.
 	 */
-	SuperDAO superDao;
+	private SuperDAO superDao;
 	
 //	CONSTRUCTORES
 	/**

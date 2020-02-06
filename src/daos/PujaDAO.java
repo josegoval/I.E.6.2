@@ -16,11 +16,11 @@ public class PujaDAO {
 	/**
 	 * Lista de todas las pujas existentes en el programa.
 	 */
-	List<Puja> pujas;
+	private List<Puja> pujas;
 	/**
 	 * SuperDAO donde se guarda la relacion de los tres.
 	 */
-	SuperDAO superDao;
+	private SuperDAO superDao;
 	
 //	CONSTRUCTORES
 	/**

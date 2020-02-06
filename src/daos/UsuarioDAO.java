@@ -23,11 +23,11 @@ public class UsuarioDAO {
 	 * Coleccion que guarda todos los usuarios existentes
 	 * en el programa o tomados de la base de datos "simulada".
 	 */
-	Map<String, Usuario> usuarios;
+	private Map<String, Usuario> usuarios;
 	/**
 	 * SuperDAO donde se guarda la relacion de los tres.
 	 */
-	SuperDAO superDao;
+	private SuperDAO superDao;
 	
 //	CONSTRUCTORES
 	/**
