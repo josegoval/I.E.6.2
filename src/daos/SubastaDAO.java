@@ -197,6 +197,7 @@ public class SubastaDAO {
 		// Si ha pasado la fecha limite se cerrara la subasta
 		if (LocalDateTime.now().isAfter(subasta.getFechaLimite())) {
 			subasta.setEstado(EstadoSubasta.CERRADA);
+			System.out.println("Subasta Cerrada.");
 		} else {
 			System.out.println("Aun no se puede cerrar la subasta.");
 		}
@@ -217,7 +218,49 @@ public class SubastaDAO {
 		}
 	}
 	
+	/**
+	 * Ejecuta una subasta cambiando su estado a EJECUTADA y incrementando
+	 * el credito del subastador y decrementando el del vendedor.
+	 * @param subasta Subasta a ejecutar.
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 06/02/2020
+	 */
+	public void ejecutarSubasta(Subasta subasta) {
+		Usuario subastador;
+		Usuario pujador;
+		double cantidad;
+		
+		if (subasta.getEstado()==EstadoSubasta.CERRADA) {
+			// Busco las variables implicadas
+			subastador = subasta.getPROPIETARIO();
+			pujador = subasta.getPujaMayor().getUSUARIO();
+			cantidad = subasta.getPujaMayor().getCANTIDAD();
+			// Incremento y decremento el credito respectivamente
+			superDao.getUsuarios().incrementarCredito(subastador.getNAME(), cantidad);
+			superDao.getUsuarios().decrementarCredito(pujador.getNAME(), cantidad);
+			// Cambio el estado de la subasta a EJECUTADA
+			subasta.setEstado(EstadoSubasta.EJECUTADA);
+			System.out.println("Subasta Ejecutada");
+		} else {
+			System.out.println("La subasta no se puede ejecutar aun. Esta " 
+					+ subasta.getEstado().name());
+		}
+	}
 	
+	/**
+	 * Consulta si una subasta esta o no ejecutada.
+	 * @param subasta Subasta a consultar.
+	 * @return true = EJECUTADA, false = NO EJECUTADA.
+	 * @author Jose Manuel Gomez Martinez
+	 * @since 06/02/2020
+	 */
+	public boolean consultarEjecucion(Subasta subasta) {
+		if (subasta.getEstado()==EstadoSubasta.EJECUTADA) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
  //	METODOS PRIVADOS
 	/**
