@@ -68,6 +68,7 @@ public class Subasta {
 //	METODOS
 //	SETTERS & GETTERS
 	/**
+	 * @return Lista de pujas de la subasta.
 	 * @deprecated
 	 */
 	public List<Puja> getPujas() {

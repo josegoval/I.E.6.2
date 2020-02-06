@@ -21,6 +21,8 @@ public class Usuario {
 //	CONSTRUCTORES
 	/**
 	 * Constructor que inicializa todos los atributos de la clase.
+	 * @param nombre Nombre del usuario.
+	 * @param creditoInicial Credito inicial del usuario (double).
 	 * @author Manuel Jimenez Jimenez
 	 * @since 02/02/2020
 	 */

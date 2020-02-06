@@ -121,6 +121,7 @@ public class UsuarioDAO {
 	 * Imprime los datos de de las subastas ganadas si existiese alguna.
 	 * Para que una subasta este ganada, dicha subasta no puede estar abierta,
 	 * y ademas la pujaMayor tiene que haber estado realizada con el usuario.
+	 * @param usuarioKey Clave-NAME del usuario.
 	 * @author Jose Manuel Gomez Martinez
 	 * @since 02/02/2020
 	 */
@@ -179,6 +180,7 @@ public class UsuarioDAO {
 	 * Metodo que devuelve la informacion de las subastas creadas
 	 * por el usuario, si ha creado previamente alguna. En caso contrario
 	 * se le avisara de que no ha creado ninguna aun.
+	 * @param usuarioKey Clave-NAME del usuario.
 	 * @author Jose Manuel Gomez Martinez
 	 * @since 04/02/2020
 	 */
